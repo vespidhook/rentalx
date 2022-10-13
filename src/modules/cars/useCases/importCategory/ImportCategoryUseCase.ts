@@ -1,12 +1,14 @@
-import { Request, Response } from 'express';
+import { parse } from 'csv-parse';
+import fs from 'fs';
 
-class ImportCategoryController {
-    handle(request: Request, response: Response): Response {
-        const { file } = request;
-        console.log(file);
+class ImportCategoryUseCase {
+    execute(file: Express.Multer.File): void {
+        const stream = fs.createReadStream(file.path);
 
-        return response.send();
+        const parseFile = parse();
+
+        stream.pipe(parseFile);
     }
 }
 
-export { ImportCategoryController };
+export { ImportCategoryUseCase };
